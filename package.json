@@ -1,0 +1,23 @@
+{
+  "name": "dirt-simple-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "author": "Mitchell Gritts <mitchellgritts@gmail.com> (mitchellgritts.com)",
+  "license": "ISC",
+  "dependencies": {
+    "mapbox-gl": "^1.11.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "browserslist": [
+    ">2%",
+    "last 1 Edge version",
+    "last 2 Safari version",
+    "last 1 Firefox version"
+  ]
+}
