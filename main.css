@@ -42,3 +42,41 @@ img {
   padding: 8px;
   text-align: right;
 }
+
+#menu {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 70px;
+  right: 10px;
+  width: 160px;
+}
+
+#menu a {
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25)
+}
+
+#menu a:last-child {
+  border: none;
+}
+
+#menu a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+#menu a.active {
+  background-color: #3887be;
+  color: #fff;
+}
+
+#menu a.active:hover {
+  background: #3074a4;
+}

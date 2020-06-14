@@ -10,6 +10,60 @@ const map = new mapboxgl.Map({
   zoom: 6
 })
 
+// Add contours layer
+map.on('load', () => {
+  map.addSource('contours', {
+    type: 'vector',
+    url: 'mapbox://mapbox.mapbox-terrain-v2'
+  })
+
+  map.addLayer({
+    'id': 'contours',
+    'type': 'line',
+    'source': 'contours',
+    'source-layer': 'contour',
+    'layout': {
+      'visibility': 'visible',
+      'line-join': 'round',
+      'line-cap': 'round'
+    },
+    'paint': {
+      'line-color': '#877b59',
+      'line-width': 1
+    }
+  })
+})
+
+// toggle contour layer
+const toggleableLayerIds = ['contours']
+
+toggleableLayerIds.forEach(layer => {
+  var link = document.createElement('a')
+  link.href='#'
+  link.className = 'active'
+  link.textContent = layer
+
+  link.onclick = function (e) {
+    const clickedLayer = this.textContent
+    e.preventDefault()
+    e.stopPropagation()
+
+    const visibility = map.getLayoutProperty(clickedLayer, 'visibility')
+
+    if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none')
+      this.className = ''
+    } else {
+      this.className = 'active'
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible')
+    }
+  }
+
+  const layers = document.getElementById('menu')
+  layers.appendChild(link)
+})
+
+// add UI controls
 const nav = new mapboxgl.NavigationControl()
 const scale = new mapboxgl.ScaleControl({
   unit: 'imperial'
