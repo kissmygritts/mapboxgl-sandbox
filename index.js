@@ -1,5 +1,6 @@
 const mapboxgl = require('mapbox-gl')
 import 'mapbox-gl/dist/mapbox-gl.css'
+import layerStyles from './layer-styles.json'
 
 mapboxgl.accessToken = process.env.MAPBOX_KEY
 
@@ -8,59 +9,6 @@ const map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/streets-v11',
   center: [-116.77592011899117, 38.64954285997146],
   zoom: 6
-})
-
-// Add contours layer
-map.on('load', () => {
-  map.addSource('contours', {
-    type: 'vector',
-    url: 'mapbox://mapbox.mapbox-terrain-v2'
-  })
-
-  map.addLayer({
-    'id': 'contours',
-    'type': 'line',
-    'source': 'contours',
-    'source-layer': 'contour',
-    'layout': {
-      'visibility': 'visible',
-      'line-join': 'round',
-      'line-cap': 'round'
-    },
-    'paint': {
-      'line-color': '#877b59',
-      'line-width': 1
-    }
-  })
-})
-
-// toggle contour layer
-const toggleableLayerIds = ['contours']
-
-toggleableLayerIds.forEach(layer => {
-  var link = document.createElement('a')
-  link.href='#'
-  link.className = 'active'
-  link.textContent = layer
-
-  link.onclick = function (e) {
-    const clickedLayer = this.textContent
-    e.preventDefault()
-    e.stopPropagation()
-
-    const visibility = map.getLayoutProperty(clickedLayer, 'visibility')
-
-    if (visibility === 'visible') {
-      map.setLayoutProperty(clickedLayer, 'visibility', 'none')
-      this.className = ''
-    } else {
-      this.className = 'active'
-      map.setLayoutProperty(clickedLayer, 'visibility', 'visible')
-    }
-  }
-
-  const layers = document.getElementById('menu')
-  layers.appendChild(link)
 })
 
 // add UI controls
@@ -74,12 +22,42 @@ map.addControl(nav, 'top-left')
 map.addControl(scale, 'bottom-left')
 map.addControl(fullscreen, 'top-left')
 
-// get mouse coordinates
-map.on('mousemove', (e) => {
-  const {lng, lat} = e.lngLat
-
-  document.getElementById('long').innerHTML = Math.round(lng * 10000) / 10000
-  document.getElementById('lat').innerHTML = Math.round(lat * 10000) / 10000
+// add map sources
+map.on('load', () => {
+  // loop over layer-styles to add layers iteratively
+  Object.keys(layerStyles).forEach(layer => {
+    map.addSource(layer, layerStyles[layer].source)
+    map.addLayer(layerStyles[layer].layer)
+  })
 })
 
-module.exports = map
+// layer toggles
+const layerNames = ['nv_counties', 'hunt_units', 'nv_roads', 'nv_features']
+
+// loop over layers to attach event to each checkbox
+layerNames.forEach(layer => {
+  const toggle = document.getElementById(layer)
+  toggle.onclick = function (e) {
+    const checked = this.checked
+
+    if (checked) {
+      map.setLayoutProperty(layer, 'visibility', 'visible')
+    } else {
+      map.setLayoutProperty(layer, 'visibility', 'none')
+    }
+  }
+})
+
+function getLayerToggle (el) {
+  let out = {}
+
+  el.forEach(toggle => {
+    const { id, value, checked } = toggle
+    out[id] = { value, checked }
+  })
+
+  return out 
+}
+
+const y = getLayerToggle(document.getElementsByName('layertoggle'))
+console.log(JSON.stringify(y))

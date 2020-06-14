@@ -1,0 +1,82 @@
+{
+  "nv_counties": {
+    "source": {
+      "type": "vector",
+      "tiles": ["http://localhost:4000/v1/mvt/nv_counties/{z}/{x}/{y}"]
+    },
+    "layer": {
+      "id": "nv_counties",
+      "type": "fill",
+      "source": "nv_counties",
+      "source-layer": "nv_counties",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "purple",
+        "fill-opacity": 0.25
+      }
+    }
+  },
+  "hunt_units": {
+    "source": {
+      "type": "vector",
+      "tiles": ["http://localhost:4000/v1/mvt/hunt_units/{z}/{x}/{y}"]
+    },
+    "layer": {
+      "id": "hunt_units",
+      "type": "line",
+      "source": "hunt_units",
+      "source-layer": "hunt_units",
+      "layout": {
+        "visibility": "none",
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "blue",
+        "line-opacity": 0.5
+      }
+    }
+  },
+  "nv_roads": {
+    "source": {
+      "type": "vector",
+      "tiles": ["http://localhost:4000/v1/mvt/nv_roads/{z}/{x}/{y}"]
+    },
+    "layer": {
+      "id": "nv_roads",
+      "type": "line",
+      "source": "nv_roads",
+      "source-layer": "nv_roads",
+      "layout": {
+        "visibility": "none",
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "black",
+        "line-opacity": 0.75
+      }
+    }
+  },
+  "nv_features": {
+    "source": {
+      "type": "vector",
+      "tiles": ["http://localhost:4000/v1/mvt/nv_features/{z}/{x}/{y}"]
+    },
+    "layer": {
+      "id": "nv_features",
+      "type": "circle",
+      "source": "nv_features",
+      "source-layer": "nv_features",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "circle-color": "green",
+        "circle-opacity": 0.7
+      }
+    }
+  }
+}
