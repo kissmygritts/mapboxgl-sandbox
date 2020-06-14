@@ -1,9 +1,16 @@
 <html>
   <head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
     <link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map" ref="map"></div>
+    <div id="info">
+      <ul>
+        <li>Latitude: <span id="lat">0</span></li>
+        <li>Longitude: <span id="long">0</span></li>
+      </ul>
+    </div>
     <script src="./index.js"></script>
   </body>
 </html>

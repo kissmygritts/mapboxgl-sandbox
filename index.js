@@ -19,3 +19,13 @@ const fullscreen = new mapboxgl.FullscreenControl()
 map.addControl(nav, 'top-left')
 map.addControl(scale, 'bottom-left')
 map.addControl(fullscreen, 'top-left')
+
+// get mouse coordinates
+map.on('mousemove', (e) => {
+  const {lng, lat} = e.lngLat
+
+  document.getElementById('long').innerHTML = Math.round(lng * 10000) / 10000
+  document.getElementById('lat').innerHTML = Math.round(lat * 10000) / 10000
+})
+
+module.exports = map
